@@ -218,7 +218,7 @@ public:
     void updateSystem (const vector_type& beta, BCHandler& bch, const Real& time);
 
     //! Setup the linear solver
-    void setupLinearSolver (const GetPot& dataFile, const string& section = "level-set");
+    void setupLinearSolver (const GetPot& dataFile, const std::string& section = "level-set");
 
     //! Solve the problem with the built system
     void iterate();
@@ -460,7 +460,7 @@ updateSystem (const vector_type& beta, BCHandler& bcHandler, const Real& time)
 template< typename mesh_type, typename solver_type>
 void
 LevelSetSolver<mesh_type, solver_type>::
-setupLinearSolver (const GetPot& dataFile, const string& section)
+setupLinearSolver (const GetPot& dataFile, const std::string& section)
 {
     M_linearSolver.setDataFromGetPot ( dataFile, (section + "/solver").data() );
     M_linearSolver.setupPreconditioner ( dataFile, (section + "/prec").data() );
@@ -515,7 +515,7 @@ reinitializationDirect()
 
 
     // Storage for the distance
-    std::vector < std::vector < Real > > temp_distances (nb_proc, vector< Real> (nPt, 0.0) );
+    std::vector < std::vector < Real > > temp_distances (nb_proc, std::vector< Real> (nPt, 0.0) );
 
     // Communications
 
@@ -556,7 +556,7 @@ reinitializationDirect()
             //std::cout << " Compute " << std::endl;
             for (int iter_pt (0); iter_pt < nPt; ++iter_pt)
             {
-                vector<Real> dof_coord;
+                std::vector<Real> dof_coord;
                 dof_coord.push_back (my_points[iter_pt][0]);
                 dof_coord.push_back (my_points[iter_pt][1]);
                 dof_coord.push_back (my_points[iter_pt][2]);

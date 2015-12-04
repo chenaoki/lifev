@@ -226,7 +226,7 @@ Structure::Structure ( int                                   argc,
     parameters ( new Private() )
 {
     GetPot command_line (argc, argv);
-    string data_file_name = command_line.follow ("data", 2, "-f", "--file");
+    std::string data_file_name = command_line.follow ("data", 2, "-f", "--file");
     GetPot dataFile ( data_file_name );
     parameters->data_file_name = data_file_name;
 
@@ -329,7 +329,7 @@ Structure::run3d()
     //! #################################################################################
     //! BOUNDARY CONDITIONS
     //! #################################################################################
-    vector <ID> compx (1), compy (1), compz (1), compxy (2), compxz (2), compyz (2);
+    std::vector <ID> compx (1), compy (1), compz (1), compxy (2), compxz (2), compyz (2);
     compx[0] = 0;
     compy[0] = 1, compz[0] = 2;
     compxy[0] = 0;
@@ -491,7 +491,7 @@ Structure::run3d()
     //!--------------------------------------------------------------------------------------------
     //! MATLAB FILE WITH DISPLACEMENT OF A CHOSEN POINT
     //!--------------------------------------------------------------------------------------------
-    cout.precision(16);
+    std::cout.precision(16);
     ofstream file_comp( "Displacement_components_NL.m" );
     if ( !file_comp )
     {
@@ -506,11 +506,11 @@ Structure::run3d()
     //int IDPoint = 315;// cube8x8.mesh
     //int IDPoint = 1526;// cube16x16.mesh
 
-    file_comp << " % TEST NONLINEAR ELASTICITY" << endl;
-    file_comp << " % Displacement components of ID node  " << IDPoint << " :" << endl;
-    file_comp << " % Each row is a time step" << endl;
-    file_comp << " % First column = comp x, second = comp y and third = comp z. " << endl;
-    file_comp <<  endl;
+    file_comp << " % TEST NONLINEAR ELASTICITY" << std::endl;
+    file_comp << " % Displacement components of ID node  " << IDPoint << " :" << std::endl;
+    file_comp << " % Each row is a time step" << std::endl;
+    file_comp << " % First column = comp x, second = comp y and third = comp z. " << std::endl;
+    file_comp <<  std::endl;
     file_comp << " SolidDisp_NL = [ " ;
 
     for ( UInt k = IDPoint - 1; k <= solid.displacement().size() - 1; k = k + solid.displacement().size()/nDimensions )
@@ -518,7 +518,7 @@ Structure::run3d()
     file_comp<< solid.displacement()[ k ] << " ";
     }
 
-    file_comp<< endl;
+    file_comp<< std::endl;
     */
     //!--------------------------------------------------------------------------------------------
     //!The update of the RHS is done by the TimeAdvance class
@@ -572,16 +572,16 @@ Structure::run3d()
            //!--------------------------------------------------------------------------------------------------
            //! MATLAB FILE WITH DISPLACEMENT OF A CHOOSEN POINT
            //!--------------------------------------------------------------------------------------------------
-           cout <<"*******  DISPLACEMENT COMPONENTS of ID node "<< IDPoint << " *******"<< std::endl;
+           std::cout <<"*******  DISPLACEMENT COMPONENTS of ID node "<< IDPoint << " *******"<< std::endl;
            for ( UInt k = IDPoint - 1 ; k <= solid.displacement().size() - 1; k = k + solid.displacement().size()/nDimensions )
            {
            file_comp<< solid.displacement()[ k ] << " ";
-           cout.precision(16);
-           cout <<"*********************************************************"<< std::endl;
-           cout <<" solid.disp()[ "<< k <<" ] = "<<  solid.displacement()[ k ]  << std::endl;
-           cout <<"*********************************************************"<< std::endl;
+           std::cout.precision(16);
+           std::cout <<"*********************************************************"<< std::endl;
+           std::cout <<" solid.disp()[ "<< k <<" ] = "<<  solid.displacement()[ k ]  << std::endl;
+           std::cout <<"*********************************************************"<< std::endl;
            }
-           file_comp<< endl;
+           file_comp<< std::endl;
         */
 
         Real normVect;
@@ -763,11 +763,11 @@ main ( int argc, char** argv )
     boost::shared_ptr<Epetra_MpiComm> Comm (new Epetra_MpiComm ( MPI_COMM_WORLD ) );
     if ( Comm->MyPID() == 0 )
     {
-        cout << "% using MPI" << endl;
+        std::cout << "% using MPI" << std::endl;
     }
 #else
     boost::shared_ptr<Epetra_SerialComm> Comm ( new Epetra_SerialComm() );
-    cout << "% using serial Version" << endl;
+    std::cout << "% using serial Version" << std::endl;
 #endif
 
     Structure structure ( argc, argv, Comm );

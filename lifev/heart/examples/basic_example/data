@@ -75,12 +75,13 @@ heart_diff_fct = 0
 # case 2: reduced diffusion in cyl region
 # case 3: reduced diffusion in box region
 
-stim_center_1   = '-0.137 0.64 -3.27'
-stim_radius_1   = 1.5
-stim_start_1    = 0
-stim_stop_1     = 1
-stim_value_1    = 100
+stim_center_1   = '0.5 0.5 0'
+stim_radius_1   = 0.2
+stim_start_1    = 100
+stim_stop_1     = 105
+stim_value_1    = 20
 stim_period_1   = 500 #350
+
 
 #per reduced_sigma_sphere (heart_diff_fct=1)
 sigma_reduction = '0.1, 1.'
@@ -95,7 +96,7 @@ sphere_radius   = 0.5
 
 [../time_discretization]
 initialtime     = 0.
-endtime         = 2
+endtime         = 2000
 timestep        = 1
 BDF_order       = 1
 

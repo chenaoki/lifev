@@ -332,7 +332,7 @@ HeartMonodomainSolver ( const data_type&          dataType,
     if (M_data.hasFibers() )
     {
         std::stringstream MyPID;
-        ifstream fibers (M_data.fibersFile().c_str() );
+        std::ifstream fibers (M_data.fibersFile().c_str() );
 
         std::cout << "fiber_file: " <<  M_data.fibersFile().c_str() << std::endl;
         UInt NumGlobalElements = M_localMapVector.map (Repeated)->NumGlobalElements();

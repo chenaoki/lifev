@@ -71,7 +71,7 @@ Heart::Heart ( Int argc,
                char** argv )
 {
     GetPot command_line (argc, argv);
-    const string data_file_name = command_line.follow ("data", 2, "-f", "--file");
+    const std::string data_file_name = command_line.follow ("data", 2, "-f", "--file");
     GetPot dataFile (data_file_name);
 
     //! Pointer to access functors
@@ -155,7 +155,7 @@ Heart::run()
     }
     else
     {
-        cout << "\n " << uOrder << " finite element not implemented yet \n";
+        std::cout << "\n " << uOrder << " finite element not implemented yet \n";
         exit (1);
     }
 
@@ -172,7 +172,7 @@ Heart::run()
     }
     else
     {
-        cout << "\n " << wOrder << " finite element not implemented yet \n";
+        std::cout << "\n " << wOrder << " finite element not implemented yet \n";
         exit (1);
     }
 

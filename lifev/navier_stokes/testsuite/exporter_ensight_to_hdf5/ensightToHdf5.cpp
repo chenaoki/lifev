@@ -90,7 +90,7 @@ EnsightToHdf5::EnsightToHdf5 ( int argc,
     d ( new Private )
 {
     GetPot command_line (argc, argv);
-    string data_file_name = command_line.follow ("data", 2, "-f", "--file");
+    std::string data_file_name = command_line.follow ("data", 2, "-f", "--file");
     GetPot dataFile ( data_file_name );
 
     d->data_file_name = data_file_name;
