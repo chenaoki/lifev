@@ -560,7 +560,7 @@ HeartFunctors::region1_Type
 HeartFunctors::appliedCurrent()
 {
     region1_Type f;
-    f = boost::bind (&HeartFunctors::setAppliedCurrent, this, 1, 2, 3, 4 );
+    f = boost::bind (&HeartFunctors::setAppliedCurrent, this, _1, _2, _3, _4 );
     return f;
 }
 
@@ -568,7 +568,7 @@ HeartFunctors::region1_Type
 HeartFunctors::stimulus()
 {
     region1_Type f;
-    f = boost::bind (&HeartFunctors::setStimulus, this, 1, 2, 3, 4, 5);
+    f = boost::bind (&HeartFunctors::setStimulus, this, _1, _2, _3, _4, _5);
     return f;
 }
 
@@ -576,7 +576,7 @@ const HeartFunctors::region_Type
 HeartFunctors::reducedConductivitySphere()
 {
     region_Type f;
-    f = boost::bind (&HeartFunctors::setReducedConductivitySphere, this, 1, 2, 3, 4, 5, 6);
+    f = boost::bind (&HeartFunctors::setReducedConductivitySphere, this, _1, _2, _3, _4, _5, _6);
     return f;
 }
 
@@ -584,7 +584,7 @@ const HeartFunctors::region_Type
 HeartFunctors::reducedConductivityCylinder()
 {
     region_Type f;
-    f = boost::bind (&HeartFunctors::setReducedConductivityCylinder, this, 1, 2, 3, 4, 5, 6);
+    f = boost::bind (&HeartFunctors::setReducedConductivityCylinder, this, _1, _2, _3, _4, _5, _6);
     return f;
 }
 
@@ -592,7 +592,7 @@ const HeartFunctors::region_Type
 HeartFunctors::reducedConductivityBox()
 {
     region_Type f;
-    f = boost::bind (&HeartFunctors::setReducedConductivityBox, this, 1, 2, 3, 4, 5, 6);
+    f = boost::bind (&HeartFunctors::setReducedConductivityBox, this, _1, _2, _3, _4, _5, _6);
     return f;
 }
 
@@ -600,7 +600,7 @@ const HeartFunctors::region1_Type
 HeartFunctors::initialScalar()
 {
     region1_Type f;
-    f = boost::bind (&HeartFunctors::setInitialScalar, this, 1, 2, 3, 4, 5);
+    f = boost::bind (&HeartFunctors::setInitialScalar, this, _1, _2, _3, _4, _5);
     return f;
 }
 
@@ -608,6 +608,6 @@ const HeartFunctors::region1_Type
 HeartFunctors::zeroScalar()
 {
     region1_Type f;
-    f = boost::bind (&HeartFunctors::setZeroScalar, this, 1, 2, 3, 4, 5);
+    f = boost::bind (&HeartFunctors::setZeroScalar, this, _1, _2, _3, _4, _5);
     return f;
 }
