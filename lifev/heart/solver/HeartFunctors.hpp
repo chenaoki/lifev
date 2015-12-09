@@ -92,7 +92,7 @@ public:
 
     Real setStimulus ( const Real& t, const Real& x, const Real& y, const Real& z, const ID&   id) const;
 
-
+    Real setCrossFieldStimulus ( const Real& t, const Real& x, const Real& y, const Real& z, const ID&   id) const;
 
 
 
@@ -153,6 +153,7 @@ public:
     Real M_stimulusPeriod5;
     Real M_stimulusPeriod6;
 
+    Int  M_stimulusCount1;
     Real M_stimulusStart1;
     Real M_stimulusStop1;
     Real M_stimulusValue1;
