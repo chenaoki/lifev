@@ -127,6 +127,7 @@ HeartFunctors::HeartFunctors ( GetPot& dataFile ) :
     M_stimulusPeriod4   (dataFile ("electric/physics/stim_period_4", 200.) ),
     M_stimulusPeriod5   (dataFile ("electric/physics/stim_period_5", 200.) ),
     M_stimulusPeriod6   (dataFile ("electric/physics/stim_period_6", 200.) ),
+    M_stimulusCount1    (dataFile ("electric/physics/stim_count_1", 8) ),
     M_stimulusStart1    (dataFile ("electric/physics/stim_start_1", 0.) ),
     M_stimulusStop1     (dataFile ("electric/physics/stim_stop_1", 0.) ),
     M_stimulusValue1    (dataFile ("electric/physics/stim_value_1", 0.) ),
@@ -441,8 +442,44 @@ HeartFunctors::setStimulus ( const Real& t, const Real& x, const Real& y, const 
 
 }
 
+Real
+HeartFunctors::setCrossFieldStimulus ( const Real& t, const Real& x, const Real& y, const Real& z, const ID&   id) const
+{
+    Real returnValue1 = 0.;
+    Real returnValue2 = 0.;
+
+    int cntPacing = static_cast<int> (t / M_stimulusPeriod1);
+    int cntS2     = static_cast<int> (t / M_stimulusPeriod2);
+    Real timeReset1 (t - cntPacing * M_stimulusPeriod1);
+    Real timeReset2 (t - cntS2     * M_stimulusPeriod2);
+
+    if( cntPacing < M_stimulusCount1 ){
+        if( timeReset1 >= M_stimulusStart1 &&
+            timeReset1 <= M_stimulusStop1 &&
+            y - M_stimulusCenter1 (1) <= M_stimulusRadius1 )
+        {
+            returnValue1 = M_stimulusValue1;
+        }
+    }
+
+    if( cntS2 == 1 ){
+        /*
+        std::cout << "DEBUG " << t << ":" << timeReset2;
+        std::cout << ":" << M_stimulusStart2;
+        std::cout << ":" << M_stimulusStop2;
+        std::cout << "\n";*/
+        if( timeReset2 >= M_stimulusStart2 &&
+           timeReset2 <= M_stimulusStop2 &&
+           x <= M_stimulusRadius2 )
+        {
+            returnValue2 = M_stimulusValue2;
+        }
+    }
 
 
+    return returnValue1 + returnValue2;
+
+}
 
 
 
@@ -560,7 +597,7 @@ HeartFunctors::region1_Type
 HeartFunctors::appliedCurrent()
 {
     region1_Type f;
-    f = boost::bind (&HeartFunctors::setAppliedCurrent, this, 1, 2, 3, 4 );
+    f = boost::bind (&HeartFunctors::setAppliedCurrent, this, _1, _2, _3, _4 );
     return f;
 }
 
@@ -568,7 +605,8 @@ HeartFunctors::region1_Type
 HeartFunctors::stimulus()
 {
     region1_Type f;
-    f = boost::bind (&HeartFunctors::setStimulus, this, 1, 2, 3, 4, 5);
+    //f = boost::bind (&HeartFunctors::setStimulus, this, 1, 2, 3, 4, 5);
+    f = boost::bind (&HeartFunctors::setCrossFieldStimulus, this, _1, _2, _3, _4, _5);
     return f;
 }
 
@@ -576,7 +614,7 @@ const HeartFunctors::region_Type
 HeartFunctors::reducedConductivitySphere()
 {
     region_Type f;
-    f = boost::bind (&HeartFunctors::setReducedConductivitySphere, this, 1, 2, 3, 4, 5, 6);
+    f = boost::bind (&HeartFunctors::setReducedConductivitySphere, this, _1, _2, _3, _4, _5, _6);
     return f;
 }
 
@@ -584,7 +622,7 @@ const HeartFunctors::region_Type
 HeartFunctors::reducedConductivityCylinder()
 {
     region_Type f;
-    f = boost::bind (&HeartFunctors::setReducedConductivityCylinder, this, 1, 2, 3, 4, 5, 6);
+    f = boost::bind (&HeartFunctors::setReducedConductivityCylinder, this, _1, _2, _3, _4, _5, _6);
     return f;
 }
 
@@ -592,7 +630,7 @@ const HeartFunctors::region_Type
 HeartFunctors::reducedConductivityBox()
 {
     region_Type f;
-    f = boost::bind (&HeartFunctors::setReducedConductivityBox, this, 1, 2, 3, 4, 5, 6);
+    f = boost::bind (&HeartFunctors::setReducedConductivityBox, this, _1, _2, _3, _4, _5, _6);
     return f;
 }
 
@@ -600,7 +638,7 @@ const HeartFunctors::region1_Type
 HeartFunctors::initialScalar()
 {
     region1_Type f;
-    f = boost::bind (&HeartFunctors::setInitialScalar, this, 1, 2, 3, 4, 5);
+    f = boost::bind (&HeartFunctors::setInitialScalar, this, _1, _2, _3, _4, _5);
     return f;
 }
 
@@ -608,6 +646,6 @@ const HeartFunctors::region1_Type
 HeartFunctors::zeroScalar()
 {
     region1_Type f;
-    f = boost::bind (&HeartFunctors::setZeroScalar, this, 1, 2, 3, 4, 5);
+    f = boost::bind (&HeartFunctors::setZeroScalar, this, _1, _2, _3, _4, _5);
     return f;
 }

@@ -434,7 +434,7 @@ main ( int argc, char** argv )
             }
             break;
         default:
-            cerr << "[Error] Diffusion type unknown" << std::endl;
+            std::cerr << "[Error] Diffusion type unknown" << std::endl;
             return ( EXIT_FAILURE );
             break;
     }
